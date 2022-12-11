@@ -1,7 +1,7 @@
 # web
 #CRUD com Banco de Dados H2
 #API para manipulação de conta bancária
-Projeto desenvolvido na apartir de um desafio proposto na disciplina de Desenvolvimento Web. 
+Projeto desenvolvido a partir de um desafio proposto na disciplina de Desenvolvimento Web. 
 
 Desafio Proposto -
 
