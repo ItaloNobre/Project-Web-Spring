@@ -10,7 +10,6 @@ Desafio Proposto -
         ❖ deletar conta:
         ➢ ao enviar a requisição, a aplicação deverá remover a conta corrente
         ❖ depositar:
-        ➢ caminho da rota: /contabancaria/{id}/deposito PUT
         ➢ ao enviar a requisição, a aplicação deverá somar o valor enviado ao saldo da
         conta corrente com ID informado no path
         ❖ sacar:
