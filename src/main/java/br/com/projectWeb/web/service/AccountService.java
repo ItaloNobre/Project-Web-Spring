@@ -35,15 +35,20 @@ public class AccountService {
 
     public Optional<Account> depositAccount(Long id, Account object) {
         Optional<Account> account = repository.findById(id);
-        account.get().setAccountBalance(account.get().getAccountBalance() + object.getAccountBalance());
+        double saldoAtual = account.get().getAccountBalance();
+        double valorDeposito = object.getAccountBalance();
+        account.get().setAccountBalance(saldoAtual + valorDeposito);
         repository.save(account.get());
         return account;
       }
 
     public Optional<Account> takeAmount(Long id, Account object) {
         Optional<Account> account = findById(id);
-        if(account.get().getAccountBalance() >= 0 && object.getAccountBalance() <= account.get().getAccountBalance() ){
-            account.get().setAccountBalance(account.get().getAccountBalance() - object.getAccountBalance());
+        double saldoAtual = account.get().getAccountBalance();
+        double valorSaque = object.getAccountBalance();
+        
+        if(saldoAtual >= 0 && valorSaque <= saldoAtual){
+            account.get().setAccountBalance(saldoAtual - valorSaque);
             repository.save(account.get());
         }
         
