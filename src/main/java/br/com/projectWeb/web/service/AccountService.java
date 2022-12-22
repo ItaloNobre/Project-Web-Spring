@@ -33,17 +33,20 @@ public class AccountService {
         return findById;
     }
 
-    public Optional<Account> depositAccount(Account object) {
-        Optional<Account> account = findById(object.getId());
+    public Optional<Account> depositAccount(Long id, Account object) {
+        Optional<Account> account = repository.findById(id);
         account.get().setAccountBalance(account.get().getAccountBalance() + object.getAccountBalance());
+        repository.save(account.get());
         return account;
       }
 
-    public Optional<Account> takeAmount(Account object) {
-        Optional<Account> account = findById(object.getId());
+    public Optional<Account> takeAmount(Long id, Account object) {
+        Optional<Account> account = findById(id);
         if(account.get().getAccountBalance() >= 0 && object.getAccountBalance() <= account.get().getAccountBalance() ){
-        account.get().setAccountBalance(account.get().getAccountBalance() - object.getAccountBalance());
+            account.get().setAccountBalance(account.get().getAccountBalance() - object.getAccountBalance());
+            repository.save(account.get());
         }
+        
         return account;
     }
     

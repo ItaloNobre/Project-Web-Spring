@@ -1,4 +1,4 @@
-package br.com.projectWeb.web.domain;
+package br.com.projectWeb.web.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.projectWeb.web.domain.Account;
 import br.com.projectWeb.web.service.AccountService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/contabancaria")
 public class AccountController {
 
     @Autowired
     AccountService service;
-    @PostMapping("/contabancaria")
+    @PostMapping("/")
     public ResponseEntity<Account> createAccount(@RequestBody Account account){
        
         Account newAccount = service.createAccount(account);
@@ -31,37 +32,37 @@ public class AccountController {
         return ResponseEntity.created(uri).build();
     }
     
-    @GetMapping("/contabancaria")
+    @GetMapping("/")
     public ResponseEntity<List<Account>> findAll(){
         List<Account> findAll = service.findAll();
         return ResponseEntity.ok(findAll);
     }
 
-    @DeleteMapping("/contabancaria/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long id){
         service.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("contabancaria/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Account> findById(@PathVariable Long id){
         Optional<Account> object = service.findById(id);
         return ResponseEntity.ok().body(object.get());
     }
 
-    @PutMapping("/contabancaria/{id}/deposito")
-    public Optional<Account> depositeAccount(@RequestBody Account object){
-        Optional<Account> depositAccount = service.depositAccount(object);;
+    @PutMapping("/{id}/deposito")
+    public Optional<Account> depositeAccount(@PathVariable Long id, @RequestBody Account object){
+        Optional<Account> depositAccount = service.depositAccount(id,object);;
         return depositAccount;
     }
     
-    @PutMapping("/contabancaria/{id}/saque")
-    public Optional<Account> takeAmount(@RequestBody Account object){
-        Optional<Account> takeAmount = service.takeAmount(object);;
+    @PutMapping("/{id}/saque")
+    public Optional<Account> takeAmount(@PathVariable Long id, @RequestBody Account object){
+        Optional<Account> takeAmount = service.takeAmount(id, object);;
         return takeAmount;
     }
 
-    @GetMapping("contabancaria/{id}/saldo")
+    @GetMapping("/{id}/saldo")
     public ResponseEntity<Account> showAmount(@PathVariable Long id){
         Optional<Account> object = service.showAmount(id);
         return ResponseEntity.ok().body(object.get());
