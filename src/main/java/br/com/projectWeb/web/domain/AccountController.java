@@ -1,5 +1,6 @@
 package br.com.projectWeb.web.domain;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import br.com.projectWeb.web.service.AccountService;
 
 @RestController
@@ -21,10 +24,11 @@ public class AccountController {
     @Autowired
     AccountService service;
     @PostMapping("/contabancaria")
-    public ResponseEntity<Account> creteAccount(@RequestBody Account account){
+    public ResponseEntity<Account> createAccount(@RequestBody Account account){
        
-        Account createAccount = service.createAccount(account);
-        return ResponseEntity.ok(createAccount);
+        Account newAccount = service.createAccount(account);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAccount.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
     
     @GetMapping("/contabancaria")
