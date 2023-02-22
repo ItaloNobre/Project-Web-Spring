@@ -18,3 +18,6 @@ Desafio Proposto -
         ❖ saldo:
         ➢ ao enviar a requisição, a aplicação deverá retornar o saldo da conta corrente
         com ID informado no path
+
+# Projeto atualizado na data 20/02/2023 utilizando o padrão DTO, boas praticas de programação, tratando as exceções ObjectNotFound e BadRequest.
+       
